@@ -1,0 +1,11 @@
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+<!-- formato Form tomado de el objeto apiFormatForm  -->
+<form action="{% url 'home' %}" method="post" style="width: 250px">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input name="submit" type="submit" value="submit dates">
+</form>
+
+{{ form.media }}

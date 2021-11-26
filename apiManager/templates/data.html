@@ -1,0 +1,100 @@
+{% load static %}
+<script language="javascript" type="text/javascript" src="{% static 'source/jquery.js' %}"></script>
+<script language="javascript" type="text/javascript" src="{% static 'source/jquery.canvaswrapper.js' %}"></script>
+<script language="javascript" type="text/javascript" src="{% static 'source/jquery.colorhelpers.js' %}"></script>
+<script language="javascript" type="text/javascript" src="{% static 'source/jquery.flot.js' %}"></script>
+<script language="javascript" type="text/javascript" src="{% static 'source/jquery.flot.saturated.js' %}"></script>
+<script language="javascript" type="text/javascript" src="{% static 'source/jquery.flot.browser.js' %}"></script>
+<script language="javascript" type="text/javascript" src="{% static 'source/jquery.flot.drawSeries.js' %}"></script>
+<script language="javascript" type="text/javascript" src="{% static 'source/jquery.flot.uiConstants.js' %}"></script>
+<script language="javascript" type="text/javascript" src="{% static 'source/jquery.flot.categories.js' %}"></script>
+
+<!-- Script que recibe y llena la grafica de los UDIs  -->
+<script type="text/javascript">
+
+	$(function() {
+
+		var d1 = [];
+		var list = JSON.parse('{{ udis_json|safe }}');
+
+		var roots = list['bmx']['series'][0]['datos'].map(function(row,index) {			
+
+			d1.push([row['fecha'],row['dato']]);
+		});
+
+		
+		// A null signifies separate line segments
+
+		
+		$.plot("#udi-plot", [d1], {
+		
+			xaxis: {
+				mode: "categories",
+				showTicks: false,
+				gridLines: false
+			}
+		});
+
+		// Add the Flot version string to the footer
+
+		$("#footer").prepend("Flot " + $.plot.version + " &ndash; ");
+	});
+
+</script>
+<!-- Impresion de la informacion de los UDIs segun especificada en el ejercicio -->
+<br>Grafica de precios de los UDIs en el rango de tiempo</br>
+<div class="udi-container">
+    <div id="udi-plot" class="udi-placeholder" style="height:500px;width:1000px"></div>
+</div>
+<br>Valor más alto de la UDI en pesos</br>
+{{ max_val_udis }}
+<br>
+<br>Valor más bajo de la UDI en pesos</br>
+{{ min_val_udis }}
+
+
+<br>
+<br>
+<!-- Script que recibe y llena la grafica de los UDIs  -->
+<script type="text/javascript">
+
+	$(function() {
+
+		var d1 = [];
+		var list = JSON.parse('{{ dlr_json|safe }}');
+
+		var roots = list['bmx']['series'][0]['datos'].map(function(row,index) {			
+
+			d1.push([row['fecha'],row['dato']]);
+		});
+
+		
+		// A null signifies separate line segments
+
+		
+		$.plot("#dlr-plot", [d1], {
+		
+			xaxis: {
+				mode: "categories",
+				showTicks: false,
+				gridLines: false
+			}
+		});
+
+		// Add the Flot version string to the footer
+
+		$("#footer").prepend("Flot " + $.plot.version + " &ndash; ");
+	});
+
+</script>
+<!-- Impresion de la informacion de los dolares segun especificada en el ejercicio -->
+<br>Grafica de precios de los dólares en el rango de tiempo</br>
+<div class="dlr-container">
+    <div id="dlr-plot" class="dlr-placeholder" style="height:500px;width:1000px"></div>
+</div>
+<br>Valor más alto de precio del dólar en pesos</br>
+{{ max_val_dlrs }}
+<br>
+<br>Valor más bajo de precio del dólar en pesos</br>
+{{ min_val_dlrs }}
+
