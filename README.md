@@ -11,5 +11,7 @@ django-bootstrap-datepicker-plus
 
 flotchart
 
+---
+
 Para instalar las librerias de bootstrap-datepicker, por favor visitar y leer las instrucciones en
 https://github.com/monim67/django-bootstrap-datepicker-plus
